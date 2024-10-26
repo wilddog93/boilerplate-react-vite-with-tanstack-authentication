@@ -1,0 +1,135 @@
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import UrlPattern from 'url-pattern'
+
+import { ResponseAPI, PaginationAPI } from './types'
+import { ApiError } from './apiError'
+
+export interface Result<T> {
+  data: T
+  pagination: PaginationAPI
+  response: ResponseAPI
+  errorData?: Record<string, unknown>
+}
+
+interface ResponseResult {
+  data: Record<string, unknown>
+  response?: {
+    code?: string
+    description?: string
+  }
+}
+
+const generateUrlParams = (params = {}, endpoint: string) => {
+  return new UrlPattern(endpoint).stringify(params)
+}
+
+const catchError = (error: AxiosError) => {
+  const { response, config } = error || {}
+  const errorCatch = new Error(
+    `API ERROR: ${config?.url}, Status: ${response?.status}`,
+  )
+
+  // Catch error
+  const errorAPI = (errorCatch as unknown) as ApiError
+  console.log(errorAPI, 'error API')
+
+  // Redirect to login page if error is 401
+  // if (response?.status === 401) {
+  //   localStorage.removeItem('token')
+  //   window.location.reload()
+  //   return
+  // }
+
+  // Return data if response is not null
+  if (response) {
+    const responseData = response as AxiosResponse<ResponseResult>
+
+    if (responseData?.data?.response) {
+      return {
+        data: {
+          errorData: {
+            ...responseData.data.data,
+          },
+          response: {
+            ...responseData.data.response,
+          },
+        },
+      }
+    }
+  }
+
+  throw error
+}
+
+const API_URL = import.meta.env.API_URL;
+
+const api = axios.create({
+  baseURL: API_URL || "http://localhost:4000/v1",
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    'Content-Type': 'application/json',
+  },
+  timeout: 180000, // 3 min
+})
+
+api.interceptors.response.use((response) => response, catchError)
+
+// CRUD API
+export const get = async <T>(
+  endpoint: string,
+  params: Record<string, unknown> = {},
+): Promise<Result<T>> => {
+  const url = generateUrlParams(params, endpoint)
+  const response = await api.get<Result<T>>(url)
+  return response.data
+}
+
+export const post = async <T>(
+  endpoint: string,
+  data: Record<string, unknown>,
+): Promise<Result<T>> => {
+  const response = await api.post<Result<T>>(endpoint, data)
+  return response.data
+}
+
+export const put = async <T>(
+  endpoint: string,
+  data: Record<string, unknown>,
+): Promise<Result<T>> => {
+  const response = await api.put<Result<T>>(endpoint, data)
+  return response.data
+}
+
+export const patch = async <T>(
+  endpoint: string,
+  data: Record<string, unknown>,
+): Promise<Result<T>> => {
+  const response = await api.patch<Result<T>>(endpoint, data)
+  return response.data
+}
+
+export const deleteRequest = async <T>(
+  endpoint: string,
+  data: Record<string, unknown>,
+): Promise<Result<T>> => {
+  const response = await api.delete<Result<T>>(endpoint, data)
+  return response.data
+}
+
+export const getApiUrl = (endpoint: string, params: Record<string, unknown>) => {
+  const url = generateUrlParams(params, endpoint)
+  return url
+}
+
+export const getApiUrlWithToken = (endpoint: string, params: Record<string, unknown>) => {
+  const url = generateUrlParams(params, endpoint)
+  return url
+}
+
+export const getApiUrlWithTokenAndId = (
+  endpoint: string,
+  params: Record<string, unknown>,
+) => {
+  const url = generateUrlParams(params, endpoint)
+  return url
+}
