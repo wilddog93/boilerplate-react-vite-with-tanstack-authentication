@@ -7,14 +7,12 @@ import { validateUserRoles } from '@/utils/validateRoles'
 import { useSession } from '@/hooks/session'
 
 type Props = {
-  permissions?: string[]
   roles?: string[]
   redirectTo?: string
 }
 
 function PrivateRoute(props: Props) {
   const { roles, redirectTo = '/sign-in' } = props
-
   
   const { user, isAuthenticated, loadingUserData } = useSession()
 
