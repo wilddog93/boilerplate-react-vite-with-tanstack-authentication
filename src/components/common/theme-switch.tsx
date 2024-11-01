@@ -6,7 +6,7 @@ import { SwitchProps, useSwitch } from "@nextui-org/switch";
 import clsx from "clsx";
 
 import { SunFilledIcon, MoonFilledIcon } from "@/components/icons";
-import { useThemeContext } from "@/hooks/theme-provider";
+import { useThemeContext } from "@/provider";
 import { Button, Tooltip } from "@nextui-org/react";
 
 export interface ThemeSwitchProps {
