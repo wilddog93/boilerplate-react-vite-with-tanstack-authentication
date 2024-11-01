@@ -32,10 +32,13 @@ export type AuthContextData = {
   loadingUserData: boolean
   authError?: AxiosError
   register: UseMutateFunction<AuthEntities, AxiosError, SignUpCredentials, unknown>
+  isRegistering: boolean
   registerError?: AxiosError | null
   login: UseMutateFunction<AuthEntities, AxiosError, SignInCredentials, unknown>
+  isLoggingIn?: boolean
   loginError?: AxiosError | null
   logout: UseMutateFunction<AuthEntities, AxiosError, RefreshTokenCredentials, unknown>
+  isLoggingOut?: boolean
   logoutError?: AxiosError | null
 }
 

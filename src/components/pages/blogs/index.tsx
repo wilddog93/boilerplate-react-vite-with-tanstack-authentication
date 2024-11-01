@@ -1,4 +1,4 @@
-import usePostList from "@/hooks/queryHooks/posts/usePostList"
+import usePostList from "@/hooks/query/posts/usePostList"
 import { useMemo, useState } from "react"
 
 interface Posts {

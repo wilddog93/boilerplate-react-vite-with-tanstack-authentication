@@ -146,10 +146,13 @@ function AuthProvider(props: Props) {
         loadingUserData,
         authError: authError,
         register: registerMutation.mutate,
+        isRegistering: registerMutation.isPending,
         registerError: registerMutation.error,
         login: loginMutation.mutate,
+        isLoggingIn: loginMutation.isPending,
         loginError: loginMutation.error,
         logout: logoutMutation.mutate,
+        isLoggingOut: logoutMutation.isPending,
         logoutError: logoutMutation.error,
       }}
     >

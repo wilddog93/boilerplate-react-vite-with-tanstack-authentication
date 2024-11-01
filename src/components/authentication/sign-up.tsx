@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Button, Checkbox, Input } from '@nextui-org/react';
 import { AuthIcon, GithubIcon, GoogleIcon } from '../icons';
-import { useAuth } from '@/hooks/queryHooks/auth/useAuth';
+import { useSession } from '@/hooks/session';
 
 interface FormData {
   name: string;
@@ -34,7 +34,7 @@ export const SignUp = () => {
     defaultValues: useMemo(() => defaultValues, [])
   })
 
-  const { register, isRegistering } = useAuth()
+  const { register, isRegistering } = useSession()
 
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
