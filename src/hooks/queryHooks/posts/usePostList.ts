@@ -1,4 +1,4 @@
-import { PostEntity } from '@/entities/post.entities'
+import { PostEntity } from '@/entities'
 import { get } from '@/services/api'
 import { useQueryData } from '@/hooks/useQueryData'
 import { POSTS_GET } from '@/services/endpoint'

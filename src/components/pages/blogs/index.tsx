@@ -42,8 +42,6 @@ export default function BlogPage() {
 
   const { data, isLoading, error } = usePostList(options);
 
-  console.log(data, 'data')
-
   return (
     <div>blogs</div>
   )

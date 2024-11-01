@@ -2,16 +2,15 @@
 
 import { useMemo, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { gql, useMutation } from '@apollo/client'
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Button, Checkbox, Input } from '@nextui-org/react';
 import { AuthIcon, GithubIcon, GoogleIcon } from '../icons';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/queryHooks/auth/useAuth';
 
 interface FormData {
-  name?: string;
-  email?: string;
-  password?: string;
+  name: string;
+  email: string;
+  password: string;
   confirmPassword?: string;
   isChecked?: boolean;
 }
@@ -22,31 +21,6 @@ const defaultValues = {
   password: '',
   confirmPassword: '',
   isChecked: false,
-}
-
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION($name: String!, $email: String!, $password: String!) {
-    signup(name: $name, email: $email, password: $password) {
-      token
-      user {
-        id
-        name
-        email
-      }
-    }
-  }
-`
-
-interface ResponseData {
-  signup: {
-    token: string;
-    refreshToken: string;
-    user: {
-      id: string;
-      name: string;
-      email: string;
-    }
-  }
 }
 
 export const SignUp = () => {
@@ -60,9 +34,7 @@ export const SignUp = () => {
     defaultValues: useMemo(() => defaultValues, [])
   })
 
-  const [mutateFunction, { loading }] = useMutation<ResponseData, FormData>(SIGNUP_MUTATION);
-
-  const navigate = useNavigate();
+  const { register, isRegistering } = useAuth()
 
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
@@ -72,15 +44,7 @@ export const SignUp = () => {
 
   const onSubmit = async (data: FormData) => {
     console.log(data, 'data-form')
-    const response = await mutateFunction({
-      mutation: SIGNUP_MUTATION,
-      variables: data,
-    })
-    if (response.data) {
-      localStorage.setItem('token', response.data.signup.token)
-      localStorage.setItem('refreshToken', response.data.signup.refreshToken)
-      navigate('/')
-    }
+    register({ email: data.email, password: data.password, name: data.name })
   }
 
   return (
@@ -288,7 +252,7 @@ export const SignUp = () => {
               size="md"
               type="submit"
               className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-30"
-              isLoading={loading}
+              isLoading={isRegistering}
             >
               Sign Up
             </Button>

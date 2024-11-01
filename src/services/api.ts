@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosDefaults, AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import UrlPattern from 'url-pattern'
 
 import { ResponseAPI, PaginationAPI } from './types'
@@ -17,6 +17,11 @@ interface ResponseResult {
     code?: string
     description?: string
   }
+}
+
+type SetAuthorizationHeaderParams = {
+  request: AxiosDefaults | AxiosRequestConfig
+  token: string
 }
 
 const generateUrlParams = (params = {}, endpoint: string) => {
@@ -63,13 +68,13 @@ const catchError = (error: AxiosError) => {
 
 const API_URL = import.meta.env.API_URL;
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: API_URL || "http://localhost:4000/v1",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-    'Content-Type': 'application/json',
-  },
-  timeout: 180000, // 3 min
+  // headers: {
+  //   Accept: 'application/json, text/plain, */*',
+  //   'Content-Type': 'application/json',
+  // },
+  // timeout: 180000, // 3 min
 })
 
 api.interceptors.response.use((response) => response, catchError)
@@ -132,4 +137,12 @@ export const getApiUrlWithTokenAndId = (
 ) => {
   const url = generateUrlParams(params, endpoint)
   return url
+}
+
+export const setAuthorizationHeader = (params: SetAuthorizationHeaderParams) => {
+  const { request, token } = params
+
+  ;(request.headers as Record<string, unknown>)[
+    'Authorization'
+  ] = `Bearer ${token}`
 }

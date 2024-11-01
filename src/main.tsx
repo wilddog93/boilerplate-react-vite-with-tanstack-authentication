@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { NextUIProvider } from '@nextui-org/react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import App from '@/App'
 import {
   QueryCache,
@@ -30,6 +31,7 @@ const client = new QueryClient({ queryCache })
 
 createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={client}>
+    <ReactQueryDevtools initialIsOpen={false} />
     <NextUIProvider>
       <App />
     </NextUIProvider>
