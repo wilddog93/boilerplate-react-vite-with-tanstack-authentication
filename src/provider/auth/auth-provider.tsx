@@ -124,8 +124,8 @@ function AuthProvider(props: Props) {
         navigate(path.LOGIN_PATH)
       }
       setAuthorizationHeader({ request: api.defaults, token: refreshTokenData?.data.tokens.access.token as string })
-      setCookies(TOKEN_ENTITIES, refreshTokenData?.data.tokens.access.token, { path: '/', expires: new Date(refreshTokenData?.data.tokens.access.expires as never) })
-      setCookies(REFRESH_TOKEN_ENTITIES, refreshTokenData?.data.tokens.refresh.token, { path: '/', expires: new Date(refreshTokenData?.data.tokens.refresh.expires as never)})
+      setCookies(TOKEN_ENTITIES, refreshTokenData?.data.tokens.access.token, { path: '/', expires: new Date(refreshTokenData?.data.tokens.access.expires as any) })
+      setCookies(REFRESH_TOKEN_ENTITIES, refreshTokenData?.data.tokens.refresh.token, { path: '/', expires: new Date(refreshTokenData?.data.tokens.refresh.expires as any)})
       console.log(window, 'refresh-success')
       navigate(from, { replace: true })
     }
