@@ -26,16 +26,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, defaultT
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    if(typeof window !== "undefined") {
-      if(theme === "light"){
-        localStorage.setItem("theme",  "dark");
-        document.documentElement.classList.add("dark");
-        document.documentElement.classList.remove("light");
-      } else {
-        localStorage.setItem("theme",  "light");
-        document.documentElement.classList.add("light");
-        document.documentElement.classList.remove("dark");
-      }
+    if(theme === "light"){
+      localStorage.setItem("theme",  "dark");
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      localStorage.setItem("theme",  "light");
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
     }
   };
 
