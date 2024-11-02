@@ -46,9 +46,9 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
         onClick={onChange}
       >
         <VisuallyHidden>Toggle theme</VisuallyHidden>
-        <div className={clsx("flex items-center gap-2", className)}>
-          {!isSelected ? <SunFilledIcon size={24} />
-            : <MoonFilledIcon size={24} />}
+        <div className={clsx("size-6 flex items-center gap-2", className)}>
+          {!isSelected ? <SunFilledIcon size={24} className="flex m-auto" />
+            : <MoonFilledIcon size={24} className="flex m-auto"/>}
         </div>
       </Button>
     </Tooltip>
