@@ -10,9 +10,16 @@ import { REFRESH_TOKEN_ENTITIES, TOKEN_ENTITIES } from '@/entities/token.entitie
 import { AxiosError } from 'axios'
 import { RefreshTokenCredentials } from '@/context/auth-context'
 import { path } from '@/router'
+import { toast } from 'react-toastify'
 
 type Props = {
   children: ReactNode
+}
+
+type Errors = {
+  code: string | number;
+  message: string;
+  status: string;
 }
 
 function AuthProvider(props: Props) {
@@ -64,13 +71,29 @@ function AuthProvider(props: Props) {
       return response.data;
     },
     onSuccess(data) {
+      toast.info("Login success!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
       setAuthorizationHeader({ request: api.defaults, token: data.tokens.access.token })
       setCookies(TOKEN_ENTITIES, data.tokens.access.token, { path: '/', expires: new Date(data.tokens.access.expires) })
       setCookies(REFRESH_TOKEN_ENTITIES, data.tokens.refresh.token, { path: '/', expires: new Date(data.tokens.refresh.expires)})
       navigate(from, { replace: true })
     },
     onError: (error: AxiosError) => {
-      console.error(error);
+      const errorResponse = error.response?.data as Errors;
+      toast.error(errorResponse.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
     }
   });
 
@@ -81,13 +104,29 @@ function AuthProvider(props: Props) {
       return response.data;
     },
     onSuccess: (data: AuthEntities) => {
+      toast.info("Register success!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
       setAuthorizationHeader({ request: api.defaults, token: data.tokens.access.token })
       setCookies(TOKEN_ENTITIES, data.tokens.access.token, { path: '/', expires: new Date(data.tokens.access.expires) })
       setCookies(REFRESH_TOKEN_ENTITIES, data.tokens.refresh.token, { path: '/', expires: new Date(data.tokens.refresh.expires)})
       navigate(from, { replace: true })
     },
     onError: (error: AxiosError) => {
-      console.error(error);
+      const errorResponse = error.response?.data as Errors;
+      toast.error(errorResponse.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
     }
   })
 
@@ -98,12 +137,28 @@ function AuthProvider(props: Props) {
       return response.data as AuthEntities;
     },
     onSuccess: () => {
+      toast.error("You're logged out!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
       removeCookies(TOKEN_ENTITIES)
       removeCookies(REFRESH_TOKEN_ENTITIES)
       navigate('/')
     },
     onError: (error: AxiosError) => {
-      console.error(error);
+      const errorResponse = error.response?.data as Errors;
+      toast.error(errorResponse.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      })
     }
   })
 

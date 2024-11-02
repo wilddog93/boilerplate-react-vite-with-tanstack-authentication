@@ -33,7 +33,7 @@ export const SignIn = () => {
     defaultValues: useMemo(() => defaultValues, [])
   })
 
-  const {login, isLoggingIn} = useSession()
+  const { login, isLoggingIn } = useSession()
 
   const [isVisible, setIsVisible] = useState(false);
 
