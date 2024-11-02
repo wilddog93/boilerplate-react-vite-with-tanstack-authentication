@@ -45,7 +45,7 @@ export const SignIn = () => {
 
   return (
     <div className="h-screen flex">
-      <div className="hidden lg:flex items-center justify-center flex-1 dark:bg-foreground-50 bg-background">
+      <div className="hidden lg:flex items-center justify-center flex-1 bg-background">
         <div className="max-w-md text-center">
           <AuthIcon className="w-full" />
         </div>
