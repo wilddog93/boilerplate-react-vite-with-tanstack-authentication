@@ -45,7 +45,7 @@ export const SignIn = () => {
 
   return (
     <div className="h-screen flex">
-      <div className="hidden lg:flex items-center justify-center flex-1 bg-background">
+      <div className="hidden lg:flex items-center justify-center flex-1 dark:bg-foreground-50 bg-background">
         <div className="max-w-md text-center">
           <AuthIcon className="w-full" />
         </div>
@@ -96,8 +96,7 @@ export const SignIn = () => {
                   label="Email"
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-foreground/5 bg-white",
                   }}
                   color='default'
                   labelPlacement='inside'
@@ -137,8 +136,7 @@ export const SignIn = () => {
                   type={isVisible ? "text" : "password"}
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-foreground/5 bg-white",
                   }}
                   color='default'
                   radius='sm'
@@ -168,7 +166,7 @@ export const SignIn = () => {
                     size='md'
                     className='items-start'
                     classNames={{
-                      label: "text-sm text-gray-600 font-medium",
+                      label: "text-sm dark:text-foreground text-gray-600 font-medium",
                     }}
                   >
                     Keep me signed in
@@ -180,7 +178,7 @@ export const SignIn = () => {
                 defaultValue={defaultValues.isChecked}
               />
               <div className='flex items-center gap-2'>
-                <a href="#" className="text-sm text-gray-600 font-semibold hover:underline">Forgot password?</a>
+                <a href="#" className="text-sm dark:text-foreground text-gray-600 font-semibold hover:underline">Forgot password?</a>
               </div>
             </div>
 
@@ -189,13 +187,13 @@ export const SignIn = () => {
               variant="solid"
               size="md"
               type="submit"
-              className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-30"
+              className="w-full dark:bg-foreground-50 bg-black text-white p-2 rounded-md focus:ring-2 focus:ring-offset-2 transition-colors duration-300 disabled:opacity-30"
               isLoading={isLoggingIn}
             >
               Sign In
             </Button>
           </form>
-          <div className="mt-4 text-sm text-center text-gray-600">
+          <div className="mt-4 text-sm text-center dark:text-foreground text-gray-600">
             <p>You don't have an account? <a href="#" className="text-sm font-semibold hover:underline">Create new account</a>
             </p>
           </div>

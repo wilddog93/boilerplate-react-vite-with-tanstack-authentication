@@ -58,7 +58,7 @@ export const SignUp = () => {
       <div className="w-full lg:w-1/2 flex items-center justify-center bg-foreground/5">
         <div className="max-w-md w-full p-6">
           <h1 className="text-3xl font-semibold mb-6 text-center">Sign Up</h1>
-          <h1 className="text-sm font-semibold mb-6 dark:text-gray-100 text-gray-600 text-center">Join to Our Community with all time access and free </h1>
+          <h1 className="text-sm font-semibold mb-6 dark:text-foreground text-gray-600 text-center">Join to Our Community with all time access and free </h1>
           <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
               <Button
@@ -84,7 +84,7 @@ export const SignUp = () => {
               </Button>
             </div>
           </div>
-          <div className="mt-4 text-sm text-center">
+          <div className="my-4 text-sm text-center">
             <p>or with email</p>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -99,8 +99,7 @@ export const SignUp = () => {
                   label="Name"
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-background bg-white",
                   }}
                   color='default'
                   labelPlacement='inside'
@@ -126,8 +125,7 @@ export const SignUp = () => {
                   label="Email"
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-background bg-white",
                   }}
                   color='default'
                   labelPlacement='inside'
@@ -167,8 +165,7 @@ export const SignUp = () => {
                   type={isVisible ? "text" : "password"}
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-background bg-white",
                   }}
                   color='default'
                   radius='sm'
@@ -207,8 +204,7 @@ export const SignUp = () => {
                   type={isVisibleConfirm ? "text" : "password"}
                   className='w-full'
                   classNames={{
-                    inputWrapper: "bg-white",
-                    input: "bg-white border-gray-700 text-gray-700",
+                    inputWrapper: "dark:bg-background bg-white",
                   }}
                   color='default'
                   radius='sm'
@@ -234,7 +230,7 @@ export const SignUp = () => {
                   size='md'
                   className='items-start'
                   classNames={{
-                    label: "text-sm text-gray-600 font-medium",
+                    label: "text-sm dark:text-foreground text-gray-600 font-medium",
                   }}
                 >
                   I have read and agreed to the Terms & Conditions and Privacy Notice of the Comunnity.
@@ -251,13 +247,13 @@ export const SignUp = () => {
               variant="solid"
               size="md"
               type="submit"
-              className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-30"
+              className="w-full dark:bg-foreground-50 bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300 disabled:opacity-30"
               isLoading={isRegistering}
             >
               Sign Up
             </Button>
           </form>
-          <div className="mt-4 text-sm  text-center">
+          <div className="mt-4 text-sm text-center">
             <p>Already have an account? <a href="#" className="font-semibold hover:underline">Login here</a>
             </p>
           </div>
