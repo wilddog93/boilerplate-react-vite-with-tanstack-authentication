@@ -19,9 +19,7 @@ const usePostList = ({ ...params }: PostListParams) =>
   useQueryData({
     queryKey: ['post-list', params],
     queryFn: () =>
-      get<PostEntity[]>(POSTS_GET, {
-        params,
-      }),
+      get<PostEntity[]>(POSTS_GET, params), 
   })
 
 export default usePostList

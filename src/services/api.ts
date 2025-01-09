@@ -84,8 +84,7 @@ export const get = async <T>(
   endpoint: string,
   params: Record<string, unknown> = {},
 ): Promise<Result<T>> => {
-  const url = generateUrlParams(params, endpoint)
-  const response = await api.get<Result<T>>(url)
+  const response = await api.get<Result<T>>(endpoint, { params })
   return response.data
 }
 

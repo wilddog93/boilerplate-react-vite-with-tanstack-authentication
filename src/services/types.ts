@@ -6,6 +6,6 @@ export interface ResponseAPI {
 export interface PaginationAPI {
   page: number
   limit: number
-  totalItem: number
-  totalPage: number
+  totalItems: number
+  totalPages: number
 }
